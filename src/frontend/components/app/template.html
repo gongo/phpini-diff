@@ -1,0 +1,36 @@
+<div class="page-header">
+    <h1>php.ini diff</h1>
+
+    <div class="row text-right">
+        <label>Source
+            <select v-model="sourceVersion" options="versions"></select>
+        </label>
+
+        <label>Target
+            <select id="targetVersion" v-model="targetVersion" options="versions"></select>
+        </label>
+
+        <input type="button" value="View diff" v-on="click: fetchDiff">
+    </div>
+</div>
+
+
+<div id="message" class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+        <div class="alert alert-info" role="alert" v-if="msgNotice">{{msgNotice}}</div>
+        <div class="alert alert-danger" role="alert" v-if="msgError">{{msgError}}</div>
+    </div>
+</div>
+
+</div class="row">
+    <component is="hunks" hunks="{{diffHunks}}"></component>
+</div>
+
+<div id="footer">
+    <p>
+        &copy; 2015 Wataru MIYAGUNI
+    </p>
+    <p>
+        Powered by <a href="http://vuejs.org/">Vue.js</a>
+    </p>
+</div>

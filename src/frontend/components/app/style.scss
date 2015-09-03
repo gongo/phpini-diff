@@ -1,0 +1,32 @@
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+#message {
+    margin-top: 2em;
+}
+
+// Sticky footer styles
+// refs: http://getbootstrap.com/examples/sticky-footer/sticky-footer.css
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 80px;
+}
+
+#footer {
+  @extend .text-right;
+  @extend .container;
+
+  position: absolute;
+  bottom: 0;
+  height: 80px;
+  padding-top: 1em;
+
+  p {
+    @extend .text-muted;
+  }
+}

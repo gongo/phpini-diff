@@ -1,0 +1,50 @@
+{
+  "name": "phpini-diff",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "coffee src/backend/main.coffee",
+    "build": "webpack -p",
+    "dev": "nodemon src/backend/main.coffee --watch src/backend | webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gongo/phpini-diff.git"
+  },
+  "keywords": [
+    "diff",
+    "php"
+  ],
+  "author": "Wataru MIYAGUNI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gongo/phpini-diff/issues"
+  },
+  "homepage": "https://github.com/gongo/phpini-diff#readme",
+  "dependencies": {
+    "coffee-script": "^1.9.3",
+    "diff": "^2.1.0",
+    "express": "^4.13.3",
+    "highland": "^2.5.1",
+    "semver": "^5.0.3",
+    "superagent": "^1.3.0",
+    "vue": "^0.12.12"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.5",
+    "coffee-loader": "^0.7.2",
+    "css-loader": "^0.18.0",
+    "extend": "^3.0.0",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
+    "html-loader": "^0.3.0",
+    "json-loader": "^0.5.2",
+    "node-sass": "^3.3.3",
+    "nodemon": "^1.6.1",
+    "sass-loader": "^2.0.1",
+    "style-loader": "^0.12.4",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.12.0"
+  }
+}

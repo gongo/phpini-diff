@@ -1,0 +1,43 @@
+#diff-hunk {
+  margin-top: 2em;
+
+  tr {
+    td { white-space: pre-wrap; }
+
+    &.deletion {
+      background-color: #ffdddd;
+
+      td.rightLine > span {
+        visibility: hidden;
+      }
+    }
+
+    &.insertion {
+      background-color: #ddffdd;
+
+      td.leftLine > span {
+        visibility: hidden;
+      }
+    }
+
+    &.none {
+      background-color: #ffffff;
+    }
+
+    &.boundary {
+      td {
+        text-align: center;
+        border: 2px solid #cccccc;
+
+        &.mark {
+          background-color: #dddddd;
+        }
+
+        &.code {
+          background-color: #eeeeee;
+        }
+      }
+    }
+  }
+}
+

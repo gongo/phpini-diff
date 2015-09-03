@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -e
+
+readonly BASE_DIR=$(cd $(dirname $0) && pwd)
+readonly REPO_URI="https://raw.githubusercontent.com/php/php-src"
+readonly SEMVER_RE='php-([0-9]+)\.([0-9]+)\.([0-9]+)(RC[0-9]+)?'
+
+phpini_error() {
+  echo "$1"
+  exit 1
+}
+
+phpini_filename() {
+  local tag=$1
+
+  if [[ "$tag" =~ ^${SEMVER_RE}$ ]] ; then
+      if [[ "${BASH_REMATCH[1]}" -lt 5 ]] ; then
+          # PHP 4 or less
+          echo "php.ini-recommended"
+      elif [[ "${BASH_REMATCH[1]}" -eq 5 && "${BASH_REMATCH[2]}" -lt 3 ]] ; then
+          # Less than PHP 5.3
+          echo "php.ini-recommended"
+      else
+          echo "php.ini-production"
+      fi
+  else
+    phpini_error "Invalid tag name: '${tag}'"
+  fi
+}
+
+phpini_fetch() {
+    local commit=$1
+    local tag=$2
+    local url="${REPO_URI}/${commit}/$(phpini_filename $tag)"
+    local dir="${BASE_DIR}/${tag}"
+
+    if [ -f "${dir}/php.ini.gz" ] ; then
+        echo "Already exists ${tag}/php.ini"
+    else
+        echo "Fetch ${tag}/php.ini"
+        mkdir -p "$dir"
+        curl -L --silent "$url" | gzip > "${dir}/php.ini.gz"
+    fi
+}
+
+phpini_main() {
+    local IFS=$'\n'
+
+    for refs in $(git ls-remote -t https://github.com/php/php-src 'php-*^{}')
+    do
+        commit=$(echo "$refs" | cut -f 1)
+        tag=$(echo "$refs" | cut -f 2 | cut -d '^' -f 1 | sed -e 's|refs/tags/||')
+
+        [[ "$tag" =~ ^${SEMVER_RE}$ ]] || continue
+
+        phpini_fetch "$commit" "$tag"
+    done
+}
+
+phpini_main
+
+# echo $(echo "php-4.3.10RC2" | sed -e "s|${SEMVER_RE}|\1|")
+# echo $(echo "php-4.3.10RC2" | sed -e "s|${SEMVER_RE}|\2|")
+
+
+# Local Variables:
+# mode: Shell-Script
+# sh-indentation: 4
+# sh-basic-offset: 4
+# indent-tabs-mode: nil
+# End:

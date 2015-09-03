@@ -1,0 +1,13 @@
+<table id="diff-hunk" class="table table-bordered">
+    <tbody v-repeat="hunk: hunks">
+        <tr v-if="$index != 0" class="boundary">
+            <td class="mark" colspan="2"><span class="glyphicon glyphicon-option-vertical"></span></td>
+            <td class="code"></td>
+        </tr>
+        <tr v-repeat="hunk" class="{{type}}">
+            <td class="leftLine text-right"><span>{{leftLineNumber}}</span></td>
+            <td class="rightLine text-right"><span>{{rightLineNumber}}</span></td>
+            <td>{{text}}</td>
+        </tr>
+    </tbody>
+</table>
